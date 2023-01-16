@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import Loader from "../loader/loader";
 import { useNavigate } from "react-router-dom/dist";
+import Navbar from "../Navbar/Navbar";
 
 const Movies = () => {
   const navigate = useNavigate();
@@ -27,16 +28,25 @@ const Movies = () => {
     navigate("/" + id);
   };
   return (
-    <div>
+    <>
+      <Navbar />
       <h1>
         Trending Movies <ion-icon name="chevron-forward"></ion-icon>
       </h1>
+      <div className="pagicnt">
+        <Pagination
+          count={count}
+          onChange={changepagehandler}
+          size="large"
+          page={pages}
+        />
+      </div>
       <div className="movies">
         {trending ? (
           trending.map((e, i) => (
             <div className="cnt" key={i} onClick={() => handleMovie(e.id)}>
               <img
-              className="allimg"
+                className="allimg"
                 src={`https://image.tmdb.org/t/p/w500${
                   e.poster_path ||
                   e.backdrop_path ||
@@ -45,9 +55,7 @@ const Movies = () => {
                 }`}
               />
               <div className="content">
-                <div className="star">
-                  <ion-icon name="star"></ion-icon> {e.vote_average || 0.5}
-                </div>
+                <div className="star">⭐ {e.vote_average || 0.5}</div>
                 <div className="title">
                   {e.original_name || e.original_title || e.name}
                 </div>
@@ -58,8 +66,7 @@ const Movies = () => {
                   }+trailer`}
                 >
                   <div className="trailer">
-                    <ion-icon name="play"></ion-icon>
-                    <div>Trailer</div>
+                    <div>Trailer ▶</div>
                   </div>
                 </a>
               </div>
@@ -69,10 +76,15 @@ const Movies = () => {
           <Loader />
         )}
       </div>
-      <h2>
-        <Pagination count={count} onChange={changepagehandler} />
-      </h2>
-    </div>
+      <div className="pagicnt">
+        <Pagination
+          count={count}
+          onChange={changepagehandler}
+          size="large"
+          page={pages}
+        />
+      </div>
+    </>
   );
 };
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/dist";
-
-import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Navbar from "../Navbar/Navbar";
 
 const SingleMovie = () => {
   const { id } = useParams();
@@ -19,89 +19,120 @@ const SingleMovie = () => {
     getMovie();
   }, []);
 
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
-  const showHandler = () =>{
+  const showHandler = () => {
     setShow(!show);
-  }
-
+  };
+  // "https://image.tmdb.org/t/p/w500/kP7t6RwGz2AvvTkvnI1uteEwHet.png"
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div className="cnt3">
-        <img
-          src={`https://image.tmdb.org/t/p/w500${
-            Movie?.poster_path ||
-            Movie?.backdrop_path ||
-            Movie?.profile_path ||
-            "/csU9xxVn8tVyhwx4rw96zse1xrU.jpg"
-          }`}
-        />
-        <div className="singlecontent">
-          <div className="singletitle">
-            {Movie?.original_name || Movie?.original_title || Movie?.name}
-          </div>
-          <div className="star">
-            <ion-icon name="star"></ion-icon>
-            {Movie?.vote_average || 0.5}
-          </div>
-          <div className="date">
-            {/* {e.release_date} */}
-            07/02/2100
-          </div>
-
-          <div style={{ width: 70, height: 70 ,fill: 50}}>
-            <CircularProgressbar 
-            value={Math.floor(Movie?.vote_average*10)} 
-            text={Math.floor(Movie?.vote_average*10)+"%"} 
-            styles={buildStyles({
-              textColor: "blue",
-              pathColor: "turquoise",
-              trailColor: "white"
-            })} />
-          </div>
-
-          
-        <div className="overview">
-          {show? Movie?.overview : Movie?.overview.slice(0,40)+"..."}&nbsp;&nbsp;&nbsp;<a style={{borderBottom : "1px solid gray"}} onClick={showHandler}>{show?"hide":"show more"}</a>
-        </div>
-
-          <a
-            href={`https://www.youtube.com/results?search_query=${
-              Movie?.original_name || Movie?.original_title
-            }+trailer`}
-          >
-            <br />
-            <br />
-            <br />
-            <div className="trailer">
-              <ion-icon name="play"></ion-icon>
-              <div>Trailer</div>
+    <>
+      <Navbar />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <div className="cnt3">
+          <img
+            className="backdropImg"
+            src={`https://image.tmdb.org/t/p/w500${
+              Movie?.backdrop_path || "/csU9xxVn8tVyhwx4rw96zse1xrU.jpg"
+            }`}
+            alt="not found"
+          />
+          <img
+            className="singleImg"
+            src={`https://image.tmdb.org/t/p/w500${
+              Movie?.poster_path || "/csU9xxVn8tVyhwx4rw96zse1xrU.jpg"
+            }`}
+          />
+          <div className="singlecontent">
+            <div className="singletitle">
+              {Movie?.original_name || Movie?.original_title || Movie?.name}
             </div>
-          </a>
-          
-          <br />
-            <br />
-          <div className="trailer">
-            <a href={`${Movie?.homepage}`}>Trailer By Raj</a>
-          </div>
-          <br />
-          <br />
-          <br/>
+            <div className="genres">
+              {Movie?.genres?.map((e, i) => (
+                <div key={i} className="genre">
+                  {e.name}
+                </div>
+              ))}
+            </div>
+            <div className="singledate">
+              Release Date: {Movie?.release_date}
+            </div>
+            <div className="actions-cnt">
+              <div className="rating">
+                <CircularProgressbar
+                  value={Math.floor(Movie?.vote_average * 10)}
+                  text={Math.floor(Movie?.vote_average * 10) + "%"}
+                  strokeWidth={7}
+                  styles={{
+                    text: {
+                      fill: "#fff",
+                      fontSize: "2vmax",
+                      fontWeight: "bold",
+                      fontFamily: "sans-serif",
+                    },
+                    trail: {
+                      stroke: "rgb(32,69,41)",
+                    },
+                    path: {
+                      stroke: "rgb(33,208,122)",
+                    },
+                  }}
+                />
+              </div>
+              <span>User Scores</span>
+              <i
+                data-bs-original-title="Add to list"
+                className="bi bi-list-ul"
+              ></i>
+              <i
+                data-bs-original-title="Mark as favourite"
+                className="bi bi-suit-heart-fill"
+              ></i>
+              <i
+                data-bs-original-title="Add to your watchlist"
+                className="bi bi-bookmark-fill"
+              ></i>
+              <i
+                data-bs-original-title="Rate it!"
+                className="bi bi-star-fill"
+              ></i>
+            </div>
+            <div className="tagline">{Movie?.tagline}</div>
+            <div className="overview">
+              <h2>Overview </h2>
+              {show ? Movie?.overview : Movie?.overview.slice(0, 40) + "..."}
+              &nbsp;&nbsp;&nbsp;
+              <u onClick={showHandler}>{show ? "hide" : "show more"}</u>
+            </div>
 
-          <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
-          
+            <a className="singletrailer" href={`${Movie?.homepage}`}>
+              Watch Trailer &nbsp; ▶
+            </a>
+          </div>
+        </div>
+        <div className="head">Production Team</div>
+        <div className="production-team">
+          {Movie?.production_companies?.map((e, i) => (
+            <div key={i} className="production">
+              {e.logo_path && (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${e.logo_path}`}
+                  alt="not found"
+                />
+              )}
+              <div className="production-name">{e.name} &nbsp;</div>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
