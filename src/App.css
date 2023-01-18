@@ -154,9 +154,14 @@ h1 {
 }
 .pagicnt {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
   color: white;
   background-color: rgb(56, 56, 56);
+  width: 100%;
+}
+.pagicnt button{
+  padding: 1vmax 2vmax;
 }
 .css-rppfq7-MuiButtonBase-root-MuiPaginationItem-root,
 .css-1scal0h-MuiPaginationItem-root {

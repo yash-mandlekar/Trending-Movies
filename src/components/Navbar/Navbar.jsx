@@ -3,8 +3,8 @@ import "./navbar.css";
 const Navbar = () => {
   return (
     <div className="navbar">
-      <nav>
-        <a href="#home" class="logo">
+      <nav className="nav">
+        <a href="#home" className="logo">
           Netflix
         </a>
         <ul>

@@ -3,7 +3,7 @@
   height: 6vh;
   background-color: #dadada;
 }
-nav {
+.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,42 +12,42 @@ nav {
   color: #fff;
 }
 
-nav .logo {
+.nav .logo {
   font-size: 1.5rem;
   font-weight: bold;
   color: #fff;
   text-decoration: none;
 }
 
-nav ul {
+.nav ul {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-nav ul li {
+.nav ul li {
   margin: 0 10px;
 }
 
-nav ul li a {
+.nav ul li a {
   color: #fff;
   text-decoration: none;
 }
 
-nav form {
+.nav form {
   display: flex;
   align-items: center;
 }
 
-nav form input {
+.nav form input {
   padding: 10px;
   border: none;
   background-color: #fff;
   color: #000;
 }
 
-nav form button {
+.nav form button {
   padding: 10px;
   background-color: #e50914;
   color: #fff;
